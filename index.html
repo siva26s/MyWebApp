@@ -80,7 +80,7 @@
             document.getElementById('datetime').innerText = formatDateTime(now);
         }
         function makeApiCall() {
-            fetch('https://api.example.com/data')
+            fetch('https://jsonplaceholder.typicode.com/todos/1')
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('apiResult').innerText = JSON.stringify(data, null, 2);
