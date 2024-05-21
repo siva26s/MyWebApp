@@ -64,18 +64,18 @@
         }
         function makeApiCall() {
             axios.get('https://jsonplaceholder.typicode.com/todos/1')
-  .then(function (response) {
-    // handle success
-    document.getElementById('apiResult').innerText = JSON.stringify(response, null, 2);
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
-  .finally(function () {
-    // always executed
-  });
-            
+              .then(function (response) {
+                // handle success
+                document.getElementById('apiResult').innerText = JSON.stringify(response, null, 2);
+              })
+              .catch(function (error) {
+                // handle error
+                console.log(error);
+              })
+              .finally(function () {
+                // always executed
+              });
+                        
         }
         // Update date and time every second
         setInterval(updateDateTime, 1000);
