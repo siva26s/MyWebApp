@@ -36,28 +36,7 @@
             margin-top: 1em;
         }
     </style>
-</head>
-<body>
-    <header>
-        <h1>Welcome</h1>
-        <div id="datetime"></div>
-    </header>
-    <div id="container">
-        <aside>
-            <h2>Sidebar</h2>
-            <p>Navigation links or other content</p>
-        </aside>
-        <main>
-            <h2>Main Content</h2>
-            <button onclick="makeApiCall()">Make API Call</button>
-            <div id="apiResult"></div>
-        </main>
-       
-    </div>
-     <!--<footer>
-        <p>&copy; 2024 Example Company</p>
-    </footer>-->
-
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
     <script>
         function formatDateTime(date) {
             const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -84,6 +63,18 @@
             document.getElementById('datetime').innerText = formatDateTime(now);
         }
         function makeApiCall() {
+            axios.get('https://jsonplaceholder.typicode.com/todos/1')
+  .then(function (response) {
+    // handle success
+    document.getElementById('apiResult').innerText = JSON.stringify(response, null, 2);
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .finally(function () {
+    // always executed
+  });
             fetch('https://jsonplaceholder.typicode.com/todos/1')
                 .then(response => response.json())
                 .then(data => {
@@ -96,5 +87,28 @@
         // Initial call to display the date and time immediately when the page loads
         updateDateTime();
     </script>
+</head>
+<body>
+    <header>
+        <h1>Welcome</h1>
+        <div id="datetime"></div>
+    </header>
+    <div id="container">
+        <aside>
+            <h2>Sidebar</h2>
+            <p>Navigation links or other content</p>
+        </aside>
+        <main>
+            <h2>Main Content</h2>
+            <button onclick="makeApiCall()">Make API Call</button>
+            <div id="apiResult"></div>
+        </main>
+       
+    </div>
+     <!--<footer>
+        <p>&copy; 2024 Example Company</p>
+    </footer>-->
+
+    
 </body>
 </html>
