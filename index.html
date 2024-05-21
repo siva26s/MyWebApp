@@ -35,7 +35,7 @@
 </head>
 <body>
     <header>
-        <h1>API Call Example</h1>
+        <h1>Welcome</h1>
     </header>
     <div id="container">
         <aside>
@@ -47,12 +47,35 @@
             <button onclick="makeApiCall()">Make API Call</button>
             <div id="apiResult"></div>
         </main>
+        #datetime {
+            margin-top: 1em;
+        }
     </div>
      <!--<footer>
         <p>&copy; 2024 Example Company</p>
     </footer>-->
 
     <script>
+        function formatDateTime(date) {
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+            const day = days[date.getDay()];
+            const dayOfMonth = String(date.getDate()).padStart(2, '0');
+            const month = months[date.getMonth()];
+            const year = date.getFullYear();
+
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2, '0');
+
+            return `${day}, ${dayOfMonth} ${month} ${year} time ${hours}:${minutes}:${seconds}`;
+        }
+
+        function updateDateTime() {
+            const now = new Date();
+            document.getElementById('datetime').innerText = formatDateTime(now);
+        }
         function makeApiCall() {
             fetch('https://api.example.com/data')
                 .then(response => response.json())
@@ -61,6 +84,10 @@
                 })
                 .catch(error => console.error('Error:', error));
         }
+        // Update date and time every second
+        setInterval(updateDateTime, 1000);
+        // Initial call to display the date and time immediately when the page loads
+        updateDateTime();
     </script>
 </body>
 </html>
