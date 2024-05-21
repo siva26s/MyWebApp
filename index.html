@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Call Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header, footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+        #container {
+            display: flex;
+        }
+        aside {
+            background-color: #f4f4f4;
+            width: 200px;
+            padding: 1em;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+        main {
+            flex: 1;
+            padding: 1em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>API Call Example</h1>
+    </header>
+    <div id="container">
+        <aside>
+            <h2>Sidebar</h2>
+            <p>Navigation links or other content</p>
+        </aside>
+        <main>
+            <h2>Main Content</h2>
+            <button onclick="makeApiCall()">Make API Call</button>
+            <div id="apiResult"></div>
+        </main>
+    </div>
+    <footer>
+        <p>&copy; 2024 Example Company</p>
+    </footer>
+
+    <script>
+        function makeApiCall() {
+            fetch('https://api.example.com/data')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('apiResult').innerText = JSON.stringify(data, null, 2);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
