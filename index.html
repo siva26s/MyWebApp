@@ -34,6 +34,42 @@
                 }
             });
         });
+
+
+        function makeRequest(baseUrl, method, headers, params) {
+          return new Promise((resolve, reject) => {
+            let url = new URL(baseUrl);
+            Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+    
+            fetch(url, {
+              method: method,
+              headers: headers
+            })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
+            })
+            .then(data => {
+              resolve(data);
+            })
+            .catch(error => {
+              reject(error);
+            });
+          });
+        }
+
+        let baseUrl = 'https://api-t1.fyers.in/api/v3/positions';
+      let method = 'GET';
+      let headers = {
+        'Authorization': 'app_id:access_token'
+      };
+      let params = {
+        // Add your parameters here
+      };
+
+        
     </script>
 </head>
 <body>
