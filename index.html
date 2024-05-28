@@ -35,8 +35,24 @@
             });
         });
 
+function populateTable(data) {
+        const tableBody = document.getElementById('positionsTable').getElementsByTagName('tbody')[0];
 
-        function makeRequest(baseUrl, method, headers, params) {
+        data.netPositions.forEach(position => {
+            const row = tableBody.insertRow();
+
+            const cellSymbol = row.insertCell(0);
+            const cellNetQty = row.insertCell(1);
+            const cellNetAvg = row.insertCell(2);
+            const cellLtp = row.insertCell(3);
+
+            cellSymbol.textContent = position.symbol;
+            cellNetQty.textContent = position.netQty;
+            cellNetAvg.textContent = position.netAvg;
+            cellLtp.textContent = position.ltp;
+        });
+    }
+        async function makeRequest(baseUrl, method, headers, params) {
           return new Promise((resolve, reject) => {
             let url = new URL(baseUrl);
             Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
@@ -69,11 +85,49 @@
         // Add your parameters here
       };
 
+        document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('positionsButton').addEventListener('click', () => {
+        let baseUrl = 'https://api-t1.fyers.in/api/v3/positions';
+        let method = 'GET';
+        let headers = {
+          'Authorization': 'app_id:access_token'
+        };
+        let params = {
+          // Add your parameters here
+        };
+
+          try {
+        let data = await makeRequest(baseUrl, method, headers, params);
+        populateTable(data)
+      } catch (error) {
+        console.error('There was a problem with your fetch operation:', error);
+      }
+
+          
+        
+      });
+    });
         
     </script>
 </head>
 <body>
     <div class"main-content">
+        <button id="positionsButton">Positions</button>
+        <table id="positionsTable">
+    <thead>
+        <tr>
+            <th>Symbol</th>
+            <th>Net Quantity</th>
+            <th>Net Average</th>
+            <th>Last Traded Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Rows will be added here by JavaScript -->
+    </tbody>
+</table>
+
+        
         <div class="card">
           <div class="card-body">
             <button id="toggleButton">Show Form</button>
