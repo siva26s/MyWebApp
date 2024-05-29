@@ -62,7 +62,7 @@
 async function getPositions() {
             try{
                const json = JSON.stringify({grant_type: "authorization_code",appIdHash:getKey("appHash"), code:document.getElementById("authcode").value});
-               const res = await axios.post("https://api-t1.fyers.in/api/v3/positions", json, { headers: { 'Content-Type': 'application/json','Authorization': getKey("app_id") + ":" + getKey("token")  }} );
+               const res = await axios.get("https://api-t1.fyers.in/api/v3/positions", json, { headers: { 'Content-Type': 'application/json','Authorization': getKey("app_id") + ":" + getKey("token")  }} );
                populateTable(res.data)
             }catch(err){
                 console.log(err);
