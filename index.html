@@ -59,6 +59,39 @@
                 console.log(err);
             }
         }
+async function getPositions() {
+            try{
+               const json = JSON.stringify({grant_type: "authorization_code",appIdHash:getKey("appHash"), code:document.getElementById("authcode").value});
+               const res = await axios.post("https://api-t1.fyers.in/api/v3/positions", json, { headers: { 'Content-Type': 'application/json','Authorization': getKey("app_id") + ":" + getKey("token")  }} );
+               populateTable(res.data)
+            }catch(err){
+                console.log(err);
+            }
+        }
+
+       function populateTable(data) {
+        const tableBody = document.getElementById('positionsTable').getElementsByTagName('tbody')[0];
+         tableBody.innerHTML = ''; // Clear all existing rows
+        data.netPositions.forEach(position => {
+            const row = tableBody.insertRow();
+
+            const cellSymbol = row.insertCell(0);
+            const cellNetQty = row.insertCell(1);
+            const cellNetAvg = row.insertCell(2);
+            const cellLtp = row.insertCell(3);
+
+            cellSymbol.textContent = position.symbol;
+            cellNetQty.textContent = position.netQty;
+            cellNetAvg.textContent = position.netAvg;
+            cellLtp.textContent = position.ltp;
+        });
+
+        document.getElementById('overallPlTotal').textContent = data.overall.pl_total;
+    }
+
+
+       
+    
     </script>
 </head>
 <body>
@@ -69,7 +102,30 @@
    <button class="btn btn-secondary" onclick=refreshNifty()>ReFresh Nifty</button>
    <label id="Nifty50Spot" value="">Nifty50Spot</label>
     
-    
+    <br><br>
+   <button class="btn btn-primary" onclick=getPositions()>Get Positions</button>
+   <div class="container mt-5">
+    <h2>Net Positions</h2>
+    <table class="table table-striped table-bordered" id="positionsTable">
+        <thead class="thead-dark">
+            <tr>
+                <th>Symbol</th>
+                <th>Net Quantity</th>
+                <th>Net Average</th>
+                <th>Last Traded Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rows will be added here by JavaScript -->
+        </tbody>
+       <tfoot>
+            <tr>
+                <td colspan="3" class="text-right">Overall PL Total</td>
+                <td id="overallPlTotal"></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
      
 </body>
 </html>
