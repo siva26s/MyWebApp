@@ -22,15 +22,26 @@
             margin: 20px 20px 20px 20px;
         }
     </style>
-    
+    <script>
+        async function validateAuthcode() {
+        try{
+            const json = JSON.stringify({grant_type: "authorization_code",appIdHash:"a34ed55b5ff298adb398a55db8418069d8e6c19e2715c21ef8a569a82c48a252", code:document.getElementById("authcode").value});
+            const res = await axios.post("https://api-t1.fyers.in/api/v3/validate-authcode", json, { headers: { 'Content-Type': 'application/json'  }} );
+            localStorage.setItem('token', res.data.access_token);
+        }catch(err){
+            console.log(err);
+        }
+    }
+    </script>
 </head>
 <body>
-    <div>
-        <form>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-             <button type="submit" class="btn btn-primary">Submit</button>
-        </form>    
-    </div>
+    <form class="form-inline">
+        <button type="submit" class="btn btn-primary">Get Login Url</button>
+        <input type="text" id="loginurl" value="" placeholder="Login Url will be featched here">
+        <input type="text" id="authcode" value="" placeholder="Enter AuthCode" onclick=validateAuthcode()>
+        <button type="submit" class="btn btn-primary">Validate</button>
+    </form>
+    
     
      
 </body>
