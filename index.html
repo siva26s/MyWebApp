@@ -45,12 +45,10 @@
         }
         async function validateAuthcode() {
             try{
-               const authcode=document.getElementById("authcode").value
-               console.log(authcode);
-                const json = JSON.stringify({grant_type: "authorization_code",appIdHash:getKey("appHash"), code:authcode});
-                const res = await axios.post("https://api-t1.fyers.in/api/v3/validate-authcode", json, { headers: { 'Content-Type': 'application/json'  }} );
-                setKey('token', res.data.access_token);
-                console.log(res.data.access_token);
+               const json = JSON.stringify({grant_type: "authorization_code",appIdHash:getKey("appHash"), code:document.getElementById("authcode").value});
+               const res = await axios.post("https://api-t1.fyers.in/api/v3/validate-authcode", json, { headers: { 'Content-Type': 'application/json'  }} );
+               setKey('token', res.data.access_token);
+               console.log(res.data.access_token);
             }catch(err){
                 console.log(err);
             }
@@ -60,8 +58,8 @@
 <body>
     <button type="submit" onclick=getLoginUrl()>Get Login Url</button>
      <input type="text" id="loginurl" value="" placeholder="Login Url will be featched here">
-     <input type="text" id="authcode" value="" placeholder="Enter AuthCode" onclick=validateAuthcode()>
-     <button type="submit">Validate</button>
+     <input type="text" id="authcode" value="" placeholder="Enter AuthCode">
+     <button type="submit"  onclick=validateAuthcode()>Validate</button>
      <button type="submit" onclick=refreshNifty()>ReFresh Nifty</button>
      <label id="Nifty50Spot" value="">Nifty50Spot</label>
     
