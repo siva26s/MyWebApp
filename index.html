@@ -29,7 +29,8 @@
         }
         async function refreshNifty() {
             try{
-               document.getElementById("Nifty50Spot").value= await getLTP("NSE:NIFTY50-INDEX")
+                const res = await axios.get("https://api-t1.fyers.in/data/depth?symbol=NSE:NIFTY50-INDEX&ohlcv_flag=1", { headers: { 'Content-Type': 'application/json' ,'Authorization': getKey("app_id") + ":" + getKey("token") }} );
+                document.getElementById("Nifty50Spot").innerText = res.data.d[symbol].ltp;
             }catch(err){
                 console.log(err);
             }
