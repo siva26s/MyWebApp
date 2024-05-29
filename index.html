@@ -29,8 +29,7 @@
         }
         async function refreshNifty() {
             try{
-               console.log(getLTP("NSE:NIFTY50-INDEX"));
-               document.getElementById("Nifty50Spot").value=getLTP("NSE:NIFTY50-INDEX")
+               document.getElementById("Nifty50Spot").value= await getLTP("NSE:NIFTY50-INDEX")
             }catch(err){
                 console.log(err);
             }
