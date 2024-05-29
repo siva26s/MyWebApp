@@ -29,7 +29,7 @@
         }
         async function refreshNifty() {
             try{
-                document.getElementById("Nifty50Spot").value=getLTP("NSE:NIFTY50-INDEX")
+               document.getElementById("Nifty50Spot").value=getLTP("NSE:NIFTY50-INDEX")
             }catch(err){
                 console.log(err);
             }
@@ -37,7 +37,6 @@
         async function getLTP(symbol) {
             try{
                 const res = await axios.get("https://api-t1.fyers.in/data/depth?symbol="+symbol+"&ohlcv_flag=1", { headers: { 'Content-Type': 'application/json' ,'Authorization': getKey(app_id) + ":" + getKey(token) }} );
-                //document.getElementById("Nifty50Spot").value=res.data.d[symbol].ltp;
                 return res.data.d[symbol].ltp;
             }catch(err){
                 console.log(err);
@@ -48,7 +47,6 @@
                const json = JSON.stringify({grant_type: "authorization_code",appIdHash:getKey("appHash"), code:document.getElementById("authcode").value});
                const res = await axios.post("https://api-t1.fyers.in/api/v3/validate-authcode", json, { headers: { 'Content-Type': 'application/json'  }} );
                setKey('token', res.data.access_token);
-               console.log(res.data.access_token);
             }catch(err){
                 console.log(err);
             }
