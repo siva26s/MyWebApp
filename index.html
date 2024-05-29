@@ -36,7 +36,7 @@
         }
         async function getLTP(symbol) {
             try{
-                const res = await axios.get("https://api-t1.fyers.in/data/depth?symbol="+symbol+"&ohlcv_flag=1", { headers: { 'Content-Type': 'application/json' ,'Authorization': getKey(app_id) + ":" + getKey(token) }} );
+                const res = await axios.get("https://api-t1.fyers.in/data/depth?symbol="+symbol+"&ohlcv_flag=1", { headers: { 'Content-Type': 'application/json' ,'Authorization': getKey("app_id") + ":" + getKey("token") }} );
                 return res.data.d[symbol].ltp;
             }catch(err){
                 console.log(err);
