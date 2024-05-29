@@ -25,18 +25,17 @@
     </style>
     <script>
         function getKey(key) {
-            return localStorage.getItem('token');
+            return localStorage.getItem(key);
         }
         function setKey(key,value) {
             localStorage.setItem(key, value);
         }
         function getLoginUrl() {
-            console.log(getKey(loginUrl));
-            document.getElementById("loginurl").value=getKey(loginUrl);
+            document.getElementById("loginurl").value=getKey("loginUrl");
         }
         async function refreshNifty() {
             try{
-                document.getElementById("Nifty50Spot").value=getLTP(symbol)
+                document.getElementById("Nifty50Spot").value=getLTP("NSE:NIFTY50-INDEX")
             }catch(err){
                 console.log(err);
             }
