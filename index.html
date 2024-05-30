@@ -129,7 +129,7 @@ async function getPositions() {
 
                 async function getBid1(symbol) {
         try{
-            const res = await axios.get("https://api-t1.fyers.in/data/depth?symbol="+symbol+"&ohlcv_flag=1", { headers: { 'Content-Type': 'application/json' ,'Authorization': app_id + ":" + token }} );
+            const res = await axios.get("https://api-t1.fyers.in/data/depth?symbol="+symbol+"&ohlcv_flag=1", { headers: { 'Content-Type': 'application/json' ,'Authorization': getKey("app_id") + ":" + getKey("token") }} );
             return res.data.d[symbol].bids[0].price;
         }catch(err){
             console.log(err);
@@ -137,7 +137,7 @@ async function getPositions() {
     }
     async function getAsk1(symbol) {
         try{
-            const res = await axios.get("https://api-t1.fyers.in/data/depth?symbol="+symbol+"&ohlcv_flag=1", { headers: { 'Content-Type': 'application/json' ,'Authorization': app_id + ":" + token }} );
+            const res = await axios.get("https://api-t1.fyers.in/data/depth?symbol="+symbol+"&ohlcv_flag=1", { headers: { 'Content-Type': 'application/json' ,'Authorization': getKey("app_id") + ":" + getKey("token") }} );
             return res.data.d[symbol].ask[0].price;
         }catch(err){
             console.log(err);
@@ -149,7 +149,7 @@ async function getPositions() {
             price=await getAsk1(symbol1);
 	    if(price){}else{price=await getLTP(symbol1);}
 	    const json = JSON.stringify({symbol: symbol1,qty:qty1,type:1,side:1,productType:"MARGIN",limitPrice:price,stopPrice:0,validity:"DAY",disclosedQty:0,offlineOrder:false,stopLoss:0, takeProfit:0});
-            const res = await axios.post("https://api-t1.fyers.in/api/v3/orders/sync", json, { headers: { 'Content-Type': 'application/json' ,'Authorization': app_id + ":" + token }});
+            const res = await axios.post("https://api-t1.fyers.in/api/v3/orders/sync", json, { headers: { 'Content-Type': 'application/json' ,'Authorization': getKey("app_id") + ":" + getKey("token") }});
             
             
         }catch(err){
@@ -163,7 +163,7 @@ async function getPositions() {
 		if(price){}else{price=await getLTP(symbol1);}
             
             const json = JSON.stringify({symbol: symbol1,qty:qty1,type:1,side:-1,productType:"MARGIN",limitPrice:price,stopPrice:0,validity:"DAY",disclosedQty:0,offlineOrder:false,stopLoss:0, takeProfit:0});
-            const res = await axios.post("https://api-t1.fyers.in/api/v3/orders/sync", json, { headers: { 'Content-Type': 'application/json' ,'Authorization': app_id + ":" + token }});
+            const res = await axios.post("https://api-t1.fyers.in/api/v3/orders/sync", json, { headers: { 'Content-Type': 'application/json' ,'Authorization': getKey("app_id") + ":" + getKey("token") }});
             
             
         }catch(err){
