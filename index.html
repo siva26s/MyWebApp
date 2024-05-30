@@ -143,8 +143,10 @@ async function getPositions() {
             console.log(err);
         }
     }
-    async function Buy(symbol1,qty1) {
+    async function Buy() {
         try{
+		let symbol1=document.getElementById('symbol').value;
+		let qty1= document.getElementById('qty').value;
             let price=0;
             price=await getAsk1(symbol1);
             console.log(price);
@@ -156,8 +158,10 @@ async function getPositions() {
             console.log(err);
         }
     }
-    async function Sell(symbol1,qty1) {
+    async function Sell() {
         try{
+		let symbol1=document.getElementById('symbol').value;
+		let qty1= document.getElementById('qty').value;
             let price=0;
             price=await getAsk1(symbol1);
             console.log(price);
@@ -240,10 +244,10 @@ async function getPositions() {
 		        <input type="text" class="form-control m-2 w-100" id="qty" value="500" placeholder="Qty">
                     </div>
                     <div class="col-3">
-		        <button class="btn btn-success m-2 w-100" onclick= "Buy(document.getElementById('symbol').value, document.getElementById('qty').value)">Buy</button>
+		        <button class="btn btn-success m-2 w-100" onclick= Buy()>Buy</button>
                     </div>
                    <div class="col-3">
-		        <button class="btn btn-danger m-2 w-100" onclick= "Sell(document.getElementById('symbol').value, document.getElementById('qty').value)">Sell</button>
+		        <button class="btn btn-danger m-2 w-100" onclick= Sell()>Sell</button>
                     </div>
 		   
 	   </div>
