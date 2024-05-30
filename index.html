@@ -68,7 +68,7 @@
            try{
               const symbol="NSE:NIFTY50-INDEX"
               const res = await axios.get("https://api-t1.fyers.in/data/depth?symbol="+symbol+"&ohlcv_flag=1", { headers: { 'Content-Type': 'application/json' ,'Authorization': getKey("app_id") + ":" + getKey("token") }} );
-              document.getElementById("Nifty50Spot").innerText = res.data.d[symbol].ltp;
+              document.getElementById("Nifty50Spot").innerText = Math.round(res.data.d[symbol].ltp * 100) / 100 ;
             }catch(err){
                 console.log(err);
             }
@@ -127,9 +127,10 @@ async function getPositions() {
     </script>
 </head>
 <body>
+
+   
    <div class="container m-2">
-        
-        <div class="row">
+       <div class="row">
             <div class="col-10">
                 <form class="form-inline">
                <button class="btn btn-primary m-2" onclick=getLoginUrl()>Get Login Url</button>
@@ -140,37 +141,39 @@ async function getPositions() {
                </form>
             </div>
            <div class="col-2">
-                <label id="Nifty50Spot">Nifty50Spot</label>
+              <button id="Nifty50Spot" type="button" class="btn btn-outline-info">Nifty50Spot</button>
             </div>
         </div>
     </div>
    
-    
+
+   
    
    
    <div class="container m-2">
       <button class="btn btn-primary" onclick=getPositions()>Get Positions</button>
-    <h2>Net Positions</h2>
-    <table class="table table-striped table-bordered" id="positionsTable">
-        <thead class="thead-dark">
-            <tr>
-                <th>Symbol</th>
-                <th>Net Quantity</th>
-                <th>Net Average</th>
-                <th>Last Traded Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Rows will be added here by JavaScript -->
-        </tbody>
-       <tfoot>
-            <tr>
-                <td colspan="3" class="text-right">Overall PL Total</td>
-                <td id="overallPlTotal"></td>
-            </tr>
-        </tfoot>
-    </table>
-</div>
+         <table class="table table-striped table-bordered" id="positionsTable">
+           <thead class="thead-dark">
+               <tr>
+                   <th>Symbol</th>
+                   <th>Net Quantity</th>
+                   <th>Net Average</th>
+                   <th>Last Traded Price</th>
+               </tr>
+           </thead>
+           <tbody>
+               <!-- Rows will be added here by JavaScript -->
+           </tbody>
+          <tfoot>
+               <tr>
+                   <td colspan="3" class="text-right">Overall PL Total</td>
+                   <td id="overallPlTotal"></td>
+               </tr>
+           </tfoot>
+       </table>
+   </div>
+
+
 
    
    
