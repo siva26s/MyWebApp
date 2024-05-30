@@ -47,7 +47,7 @@
 
             if (now >= startTime && now <= endTime) {
                 // If within the time range, start the interval
-                intervalId = setInterval(SL_tracking, 40000);
+                intervalId = setInterval(SL_tracking(), 40000);
                 SL_tracking(); // Optionally call the function immediately
             } else {
                 // If not within the time range, log the status
