@@ -11,8 +11,8 @@
    
     <script>
        function updateLog(info) {
-            document.getElementById("loginfo").innerText = info;
-        }
+            document.getElementById("loginfo").value = info;
+         }
         function getKey(key) {
             return localStorage.getItem(key);
         }
@@ -178,13 +178,12 @@ async function getPositions() {
    
    
    <div class="container m-2">
-      <label id="LogInfo" value="">LogInfo</label>
-   <button class="btn btn-primary" onclick=startStoplossTracking()>Start SL</button>
-   <button class="btn btn-primary" onclick=stopStoplossTracking()>Stop SL</button>
+      <button class="btn btn-primary" onclick=startStoplossTracking()>Start SL</button>
+      <button class="btn btn-primary" onclick=stopStoplossTracking()>Stop SL</button>
    </div>
 
    <div class="container m-2">
-      <input type="text" class="form-control m-2" id="loginfo" value="" placeholder="Log Info">
+      <input id="loginfo" type="text" class="form-control m-2" value="" placeholder="Log Info">
    </div>
    
 
