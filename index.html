@@ -141,13 +141,20 @@ async function getPositions() {
     </script>
 </head>
 <body>
-   
+   <div class="container">
+        
+        <div class="row justify-content-end">
+            <div class="col-auto">
+                <h1 id="Nifty50Spot">Nifty50Spot</h1>
+            </div>
+        </div>
+    </div>
    <button class="btn btn-primary" onclick=getLoginUrl()>Get Login Url</button>
    <input type="text" class="form-control" id="loginurl" value="" placeholder="Login Url will be featched here">
    <input type="text" class="form-control" id="authcode" value="" placeholder="Enter AuthCode">
    <button class="btn btn-secondary"   onclick=validateAuthcode()>Validate</button>
    <button class="btn btn-secondary" onclick=refreshNifty()>ReFresh Nifty</button>
-   <label id="Nifty50Spot" value="">Nifty50Spot</label>
+   
     
     <br>
    <button class="btn btn-primary" onclick=getPositions()>Get Positions</button>
