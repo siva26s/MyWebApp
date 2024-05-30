@@ -121,7 +121,7 @@ async function getPositions() {
             cellLtp.textContent = position.ltp;
         });
 
-        document.getElementById('overallPlTotal').textContent = data.overall.pl_total;
+        document.getElementById('overallPlTotal').textContent = roundTwoDec(data.overall.pl_total);
     }
 
 
