@@ -145,6 +145,7 @@ async function getPositions() {
     }
     async function Buy(symbol1,qty1) {
         try{
+		qty1=Number(qty1)
 		let price=0;
             price=await getAsk1(symbol1);
 	    if(price){}else{price=await getLTP(symbol1);}
@@ -158,6 +159,7 @@ async function getPositions() {
     }
     async function Sell(symbol1,qty1) {
         try{
+		qty1=Number(qty1)
 		let price=0;
             price=await getAsk1(symbol1);
 		if(price){}else{price=await getLTP(symbol1);}
