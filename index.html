@@ -240,10 +240,10 @@ async function getPositions() {
 		        <input type="text" class="form-control m-2 w-100" id="qty" value="500" placeholder="Qty">
                     </div>
                     <div class="col-3">
-		        <button class="btn btn-success m-2 w-100" onclick= Buy(document.getElementById('symbol').value, document.getElementById('qty').value)>Buy</button>
+		        <button class="btn btn-success m-2 w-100" onclick= "Buy(document.getElementById('symbol').value, document.getElementById('qty').value)">Buy</button>
                     </div>
                    <div class="col-3">
-		        <button class="btn btn-danger m-2 w-100" onclick= Sell(document.getElementById('symbol').value, document.getElementById('qty').value)>Sell</button>
+		        <button class="btn btn-danger m-2 w-100" onclick= "Sell(document.getElementById('symbol').value, document.getElementById('qty').value)">Sell</button>
                     </div>
 		   
 	   </div>
@@ -254,7 +254,7 @@ async function getPositions() {
         
         
         <div class="container m-2">
-	   <button class="btn btn-primary m-2 w-100" onclick=stopStoplossTracking()>Stop SL</button>
+	   <button class="btn btn-primary m-2 w-100" onclick=startStoplossTracking()>Start SL</button>
            <button class="btn btn-primary m-2 w-100" onclick=stopStoplossTracking()>Stop SL</button>
          </div>
 
