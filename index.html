@@ -47,8 +47,8 @@
 
             if (now >= startTime && now <= endTime) {
                 // If within the time range, start the interval
-                intervalId = setInterval(runEveryTwoMinutes, 40000);
-                //runEveryTwoMinutes(); // Optionally call the function immediately
+                intervalId = setInterval(SL_tracking, 40000);
+                SL_tracking(); // Optionally call the function immediately
             } else {
                 // If not within the time range, log the status
                   document.getElementById("LogInfo").innerText ="Current time is outside the allowed range. Interval not started.";
@@ -58,9 +58,12 @@
 
         function stopStoplossTracking() {
             clearInterval(intervalId);
-            document.getElementById("LogInfo").innerText =='Interval stopped.';
+            document.getElementById("LogInfo").innerText =='SL traking is stoped:';
         }
-       
+       function setInterval() {
+          const now = new Date();
+            document.getElementById("LogInfo").innerText =='SL traking is running:'+now;
+        }
         async function refreshNifty() {
            try{
               const symbol="NSE:NIFTY50-INDEX"
