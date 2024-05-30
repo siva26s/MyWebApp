@@ -34,7 +34,11 @@
             document.getElementById("loginurl").value=getKey("loginUrl");
         }
        let intervalId;
-
+function SL_tracking() {
+          const now = new Date();
+   console.log('SL traking is running.');
+            document.getElementById("LogInfo").innerText =='SL traking is running:'+now;
+        }
         function startStoplossTracking() {
             const now = new Date();
             const currentHour = now.getHours();
@@ -60,10 +64,7 @@
             clearInterval(intervalId);
             document.getElementById("LogInfo").innerText =='SL traking is stoped:';
         }
-       function SL_tracking() {
-          const now = new Date();
-            document.getElementById("LogInfo").innerText =='SL traking is running:'+now;
-        }
+       
         async function refreshNifty() {
            try{
               const symbol="NSE:NIFTY50-INDEX"
