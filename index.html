@@ -33,6 +33,34 @@
         function getLoginUrl() {
             document.getElementById("loginurl").value=getKey("loginUrl");
         }
+       let intervalId;
+
+        function startStoplossTracking() {
+            const now = new Date();
+            const currentHour = now.getHours();
+            const currentMinutes = now.getMinutes();
+            const startTime = new Date(now);
+            const endTime = new Date(now);
+
+            startTime.setHours(9, 20, 0); // 9:20 AM
+            endTime.setHours(15, 20, 0);  // 3:20 PM
+
+            if (now >= startTime && now <= endTime) {
+                // If within the time range, start the interval
+                intervalId = setInterval(runEveryTwoMinutes, 40000);
+                //runEveryTwoMinutes(); // Optionally call the function immediately
+            } else {
+                // If not within the time range, log the status
+                  document.getElementById("LogInfo").innerText ="Current time is outside the allowed range. Interval not started.";
+                //console.log('Current time is outside the allowed range. Interval not started.');
+            }
+        }
+
+        function stopStoplossTracking() {
+            clearInterval(intervalId);
+            document.getElementById("LogInfo").innerText =='Interval stopped.';
+        }
+       
         async function refreshNifty() {
            try{
               const symbol="NSE:NIFTY50-INDEX"
@@ -96,6 +124,7 @@ async function getPositions() {
     </script>
 </head>
 <body>
+   
    <button class="btn btn-primary" onclick=getLoginUrl()>Get Login Url</button>
    <input type="text" class="form-control" id="loginurl" value="" placeholder="Login Url will be featched here">
    <input type="text" class="form-control" id="authcode" value="" placeholder="Enter AuthCode">
@@ -129,6 +158,9 @@ async function getPositions() {
 </div>
 
    <br><br>
+   <label id="LogInfo" value="">LogInfo</label>
+   <button class="btn btn-primary" onclick=startStoplossTracking()>Start SL</button>
+   <button class="btn btn-primary" onclick=stopStoplossTracking()>Stop SL</button>
 <div class="form-group">
                 <label for="datePicker">Select expiry Date:</label>
                 <input type="date" class="form-control" id="datePicker" required>
