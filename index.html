@@ -10,6 +10,9 @@
     
    
     <script>
+       function roundTwoDec(num) {
+            return Math.round(num * 100) / 100 ;
+         }
        function updateLog(info) {
             document.getElementById("loginfo").value = info;
          }
@@ -68,7 +71,7 @@
            try{
               const symbol="NSE:NIFTY50-INDEX"
               const res = await axios.get("https://api-t1.fyers.in/data/depth?symbol="+symbol+"&ohlcv_flag=1", { headers: { 'Content-Type': 'application/json' ,'Authorization': getKey("app_id") + ":" + getKey("token") }} );
-              document.getElementById("Nifty50Spot").innerText   = Math.round(res.data.d[symbol].ltp * 100) / 100 ;
+              document.getElementById("Nifty50Spot").innerText   = roundTwoDec(res.data.d[symbol].ltp );
             }catch(err){
                 console.log(err);
             }
