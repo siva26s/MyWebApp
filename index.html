@@ -122,7 +122,53 @@ async function getPositions() {
     }
 
 
-       
+
+
+
+
+
+                async function getBid1(symbol) {
+        try{
+            const res = await axios.get("https://api-t1.fyers.in/data/depth?symbol="+symbol+"&ohlcv_flag=1", { headers: { 'Content-Type': 'application/json' ,'Authorization': app_id + ":" + token }} );
+            return res.data.d[symbol].bids[0].price;
+        }catch(err){
+            console.log(err);
+        }
+    }
+    async function getAsk1(symbol) {
+        try{
+            const res = await axios.get("https://api-t1.fyers.in/data/depth?symbol="+symbol+"&ohlcv_flag=1", { headers: { 'Content-Type': 'application/json' ,'Authorization': app_id + ":" + token }} );
+            return res.data.d[symbol].ask[0].price;
+        }catch(err){
+            console.log(err);
+        }
+    }
+    async function Buy(symbol1,qty1) {
+        try{
+            let price=0;
+            price=await getAsk1(symbol1);
+            console.log(price);
+            const json = JSON.stringify({symbol: symbol1,qty:qty1,type:1,side:1,productType:"MARGIN",limitPrice:price,stopPrice:0,validity:"DAY",disclosedQty:0,offlineOrder:false,stopLoss:0, takeProfit:0});
+            const res = await axios.post("https://api-t1.fyers.in/api/v3/orders/sync", json, { headers: { 'Content-Type': 'application/json' ,'Authorization': app_id + ":" + token }});
+            
+            
+        }catch(err){
+            console.log(err);
+        }
+    }
+    async function Sell(symbol1,qty1) {
+        try{
+            let price=0;
+            price=await getAsk1(symbol1);
+            console.log(price);
+            const json = JSON.stringify({symbol: symbol1,qty:qty1,type:1,side:-1,productType:"MARGIN",limitPrice:price,stopPrice:0,validity:"DAY",disclosedQty:0,offlineOrder:false,stopLoss:0, takeProfit:0});
+            const res = await axios.post("https://api-t1.fyers.in/api/v3/orders/sync", json, { headers: { 'Content-Type': 'application/json' ,'Authorization': app_id + ":" + token }});
+            
+            
+        }catch(err){
+            console.log(err);
+        }
+    }
     
     </script>
 </head>
@@ -152,23 +198,6 @@ async function getPositions() {
             <button id="Nifty50Spot" class="btn btn-outline-info m-2 w-100">Nifty50Spot</button>
          </div>
       </div>
-      
-      <!--<div class="row">
-            <div class="col-10">
-                <form class="form-inline">
-               <button class="btn btn-primary m-2" onclick=getLoginUrl()>Get Login Url</button>
-               <input type="text" class="form-control m-2" id="loginurl" value="" placeholder="Login Url will be featched here">
-               <input type="text" class="form-control m-2" id="authcode" value="" placeholder="Enter AuthCode">
-               <button class="btn btn-secondary m-2"   onclick=validateAuthcode()>Validate</button>
-               <button class="btn btn-secondary m-2" onclick=refreshNifty()>ReFresh Nifty</button>
-               </form>
-            </div>
-           <div class="col-2">
-              <input id="Nifty50Spot" type="text" class="form-control m-2" value="" placeholder="Nifty50Spot">
-           </div>
-        </div>-->
-
-      
     </div>
    
 
@@ -203,24 +232,41 @@ async function getPositions() {
    
    
    <div class="container m-2">
-      <button class="btn btn-primary m-2" onclick=startStoplossTracking()>Start SL</button>
-      <button class="btn btn-primary m-2" onclick=stopStoplossTracking()>Stop SL</button>
+	   <div class="row">
+                   <div class="col-3">
+		        <input type="text" class="form-control m-2 w-100" id="symbol" value="" placeholder="Symbol">
+                    </div>
+                   <div class="col-3">
+		        <input type="text" class="form-control m-2 w-100" id="qty" value="500" placeholder="Qty">
+                    </div>
+                    <div class="col-3">
+		        <button class="btn btn-success m-2 w-100" onclick= Buy(document.getElementById('symbol').value, document.getElementById('qty').value)>Buy</button>
+                    </div>
+                   <div class="col-3">
+		        <button class="btn btn-danger m-2 w-100" onclick= Sell(document.getElementById('symbol').value, document.getElementById('qty').value)>Sell</button>
+                    </div>
+		   
+	   </div>
+	   
+      
    </div>
+        
+        
+        
+        <div class="container m-2">
+	   <button class="btn btn-primary m-2 w-100" onclick=stopStoplossTracking()>Stop SL</button>
+           <button class="btn btn-primary m-2 w-100" onclick=stopStoplossTracking()>Stop SL</button>
+         </div>
 
+
+
+	
    <div class="container m-2">
       <input id="loginfo" type="text" class="form-control m-2" value="" placeholder="Log Info">
    </div>
    
 
-<div class="footer fixed-bottom">
-    <div class="container">
-        <div class="scroll-box">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum euismod, nisi eget consectetur facilisis, nisl nunc aliquam nunc, eget aliquam nisl nunc eget nisl. Proin euismod, nisi eget consectetur facilisis, nisl nunc aliquam nunc, eget aliquam nisl nunc eget nisl. Proin euismod, nisi eget consectetur facilisis, nisl nunc aliquam nunc, eget aliquam nisl nunc eget nisl.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum euismod, nisi eget consectetur facilisis, nisl nunc aliquam nunc, eget aliquam nisl nunc eget nisl. Proin euismod, nisi eget consectetur facilisis, nisl nunc aliquam nunc, eget aliquam nisl nunc eget nisl. Proin euismod, nisi eget consectetur facilisis, nisl nunc aliquam nunc, eget aliquam nisl nunc eget nisl.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum euismod, nisi eget consectetur facilisis, nisl nunc aliquam nunc, eget aliquam nisl nunc eget nisl. Proin euismod, nisi eget consectetur facilisis, nisl nunc aliquam nunc, eget aliquam nisl nunc eget nisl. Proin euismod, nisi eget consectetur facilisis, nisl nunc aliquam nunc, eget aliquam nisl nunc eget nisl.
-        </div>
-    </div>
-</div>
+
    
 </body>
 </html>
