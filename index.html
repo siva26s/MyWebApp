@@ -24,6 +24,9 @@
         }
     </style>
     <script>
+       function updateLog(info) {
+            document.getElementById("LogInfo").innerText = info;
+        }
         function getKey(key) {
             return localStorage.getItem(key);
         }
@@ -47,7 +50,7 @@
        let intervalId;
          function SL_tracking() {
              console.log('SL traking is running.');
-             document.getElementById("LogInfo").innerText =='SL traking is running --- '+getTimeStramp();
+             updateLog('SL traking is running --- '+getTimeStramp());
         }
         function startStoplossTracking() {
             const now = new Date();
@@ -72,7 +75,7 @@
 
         function stopStoplossTracking() {
             clearInterval(intervalId);
-            document.getElementById("LogInfo").innerText =='SL traking is stoped:';
+            updateLog('SL traking is stoped:');
         }
        
         async function refreshNifty() {
