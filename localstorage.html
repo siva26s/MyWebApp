@@ -128,7 +128,7 @@
             const value = document.getElementById('value').value;
             if (key && value) {
                 localStorage.setItem(key, value);
-                alert('Item saved!');
+                //alert('Item saved!');
                 updateStorageList();
                 document.getElementById('key').value="";
                 document.getElementById('value').value="";
@@ -149,14 +149,14 @@
                     localStorage.setItem(key, value);
                 }
             }
-            alert('All changes saved!');
+            //alert('All changes saved!');
             updateStorageList();
         }
 
         function clearAll() {
             if (confirm('Are you sure you want to remove all items?')) {
                 localStorage.clear();
-                alert('All items removed!');
+                //alert('All items removed!');
                 updateStorageList();
             }
         }
