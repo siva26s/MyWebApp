@@ -114,11 +114,13 @@ async function getPositions() {
             const cellNetQty = row.insertCell(1);
             const cellNetAvg = row.insertCell(2);
             const cellLtp = row.insertCell(3);
+            const cellpl = row.insertCell(4);
 
             cellSymbol.textContent = position.symbol;
             cellNetQty.textContent = position.netQty;
             cellNetAvg.textContent = position.netAvg;
-            cellLtp.textContent = position.ltp;
+            cellLtp.textContent = roundTwoDec(position.ltp);
+            cellpl.textContent = roundTwoDec(position.pl);
         });
 
         document.getElementById('overallPlTotal').textContent = roundTwoDec(data.overall.pl_total);
@@ -175,7 +177,21 @@ async function getPositions() {
             console.log(err);
         }
     }
-    
+    // Function to read from local storage and assign to input fields
+function populateFormFromLocalStorage() {
+    const symbol1 = localStorage.getItem('defaultSymbol1');
+    const qty1 = localStorage.getItem('defaultQty1');
+
+    if (symbol1) {
+        document.getElementById('symbol').value = symbol1;
+    }
+
+    if (qty1) {
+        document.getElementById('qty').value = qty1;
+    }
+}
+
+    window.onload = populateFormFromLocalStorage;
     </script>
 </head>
 <body>
@@ -223,6 +239,7 @@ async function getPositions() {
                    <th>Net Quantity</th>
                    <th>Net Average</th>
                    <th>Last Traded Price</th>
+                   <th>Profit/Loss</th>
                </tr>
            </thead>
            <tbody>
@@ -230,7 +247,7 @@ async function getPositions() {
            </tbody>
           <tfoot>
                <tr>
-                   <td colspan="3" class="text-right">Overall PL Total</td>
+                   <td colspan="4" class="text-right">Overall PL Total</td>
                    <td id="overallPlTotal"></td>
                </tr>
            </tfoot>
@@ -263,10 +280,10 @@ async function getPositions() {
         
         
         
-        <div class="container m-2">
-	   <button class="btn btn-primary m-2 w-100" onclick=startStoplossTracking()>Start SL</button>
-           <button class="btn btn-primary m-2 w-100" onclick=stopStoplossTracking()>Stop SL</button>
-         </div>
+        <!-- <div class="container m-2">
+            <button class="btn btn-primary m-2 w-100" onclick=startStoplossTracking()>Start SL</button>
+            <button class="btn btn-primary m-2 w-100" onclick=stopStoplossTracking()>Stop SL</button>
+         </div> -->
 
 
 
